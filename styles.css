@@ -1,7 +1,3 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
 :root {
   --clr-white: hsl(0, 0%, 100%);
   --clr-gray-100: hsl(0, 2%, 79%);
@@ -73,8 +69,34 @@
   --font-size-md: var(--fs-500);
   --font-size-lg: var(--fs-600);
 
+  --clr-brown-100: hsl(10, 5%, 92%);
+  --clr-brown-200: hsl(9, 7%, 85%);
+  --clr-brown-300: hsl(9, 8%, 78%);
+  --clr-brown-400: hsl(0, 6%, 72%);
+
+  /* other custom props */
+
+  /* @media (prefers-color-scheme: light) {
+    --text-main: var(--clr-brown-800);
+    --text-high-contrast: var(--clr-900);
+
+    --background-accent-light: var(--clr-green-600);
+    --background-accent-main: var(--clr-green-500);
+    --background-accent-dark: var(--clr-green-400);
+    --background-extra-light: var(--clr-white);
+    --background-light: var(--clr-brown-100);
+    --background-main: var(--clr-brown-200);
+    --background-dark: var(--clr-brown-300);
+    --background-extra-dark: var(--clr-brown-400);
+  } */
 }
 
+@layer reset, base, layout, components, utilities;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
 html {
   -moz-text-size-adjust: none;
@@ -87,6 +109,7 @@ html {
   html {
     scroll-behavior: smooth;
   }
+  
 }
 
 body,
@@ -151,7 +174,10 @@ select {
   margin-block-start: var(--flow-space, 1em);
 }
 
-@layer base, layout, components, utilities;
+@view-transition {
+  navigation: auto;
+}
+}
 
 @layer base {
   /* custom properties here */
@@ -190,7 +216,7 @@ select {
   .wrapper {
     --wrapper-max-width: 1130px;
     --wrapper-padding: 1rem;
-  
+
     max-width: var(--wrapper-max-width);
     margin-inline: auto;
     padding-inline: var(--wrapper-padding);
@@ -249,13 +275,25 @@ select {
     }
   }
 
+  .where-to-look {
+    align-items:center;
+
+    & h2 {
+      margin-bottom: 20px;
+    }
+  }
+
   .selects {
     display: inline-flex;
+    margin-block: 20px;
   }
 
   .bento-grid {
     display: grid;
     gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
     grid-template-areas:
     "card-one"
@@ -296,14 +334,16 @@ select {
         order: 3;
       }
     } 
-
-    
   }
 
-  .grid-auto-fit {
+  #faq h2 {
+    margin-bottom: 20px;
+  }
+
+  .grid-auto-fill {
     display: grid;
     grid-template-columns: repeat(
-    auto-fit,
+    auto-fill,
     minmax(min(var(--grid-auto-fit-min-column-size, 250px), 100%), 1fr)
     );
     gap: 0.75rem;
@@ -335,6 +375,18 @@ select {
     a {
       text-decoration: none;
     }
+  }
+
+  select {
+    border-radius: var(--border-radius-1);
+    background-color: var(--background-accent-main);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+  }
+
+  select:first-of-type {
+    margin-right: 20px;
   }
 
   .card {
@@ -477,6 +529,10 @@ select {
 
     [aria-expanded="false"] + .primary-navigation {
       display: none;
+      opacity: 0;
+
+      transition: display 1s, opacity 1s;
+      transition-behavior: allow-discrete;
     }
   }
 
@@ -530,6 +586,14 @@ select {
   .tag-list {
     display: inline-flex;
   }
+
+  .no-matches {
+    font-size: var(--fs-600);
+    padding: 1rem;
+    padding-top: 3rem;
+    color: white;
+    text-align: center;
+  }
 }
 
 @layer utilities {
@@ -572,7 +636,7 @@ select {
     background-color: var(--tag-background);
     border-radius: var(--border-radius-1);
 
-    &[data-toxic="toxic"] {
+    &[data-edible="toxic"] {
       --tag-background: var(--clr-red-500);
     }
     &[data-edible="edible"] {
@@ -587,6 +651,10 @@ select {
     &[data-season="fall"] {
       --tag-background: var(--clr-red-500);
     }
+  }
+
+  .tag:first-of-type {
+    margin-right: 10px;
   }
 
   .section-title {

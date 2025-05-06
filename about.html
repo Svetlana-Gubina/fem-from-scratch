@@ -12,6 +12,7 @@
         rel="stylesheet"
       />
       <script src="script.js" defer></script>
+      <script src="mushroom-filter.js" defer></script>
     </head>
     <body>
      <header class="site-header">
@@ -56,7 +57,7 @@
 
         <section class="background-accent section">
           <div class="wrapper">
-            <div class="equal-columns">
+            <div class="equal-columns where-to-look">
               <!-- where to look -->
               <picture class="responsive-image">
                 <!-- Desktop 2x -->
@@ -72,10 +73,11 @@
                 <!-- Fallback image for browsers that do not support the <picture> element -->
                 <img src="assets/where-to-look-mobile.png" alt="" class="fallback-image">
               </picture>
-              <div><h2>Where to look</h2>
-              <p>Different species grow in different types of environments.</p>
-              <p>Forests are always a good starting place, though, with a wide range of species that grow in them.</p>
-              <p>If you’re after something specific, you can use our reference guide below to help you out.</p>
+              <div>
+                <h2>Where to look</h2>
+                <p>Different species grow in different types of environments.</p>
+                <p>Forests are always a good starting place, though, with a wide range of species that grow in them.</p>
+                <p>If you’re after something specific, you can use our reference guide below to help you out.</p>
               </div>
             </div>
           </div>
@@ -87,7 +89,7 @@
             <div class="selects">
               <div>
                  <label class='visually-hidden' for='season'>Filter mushrooms by season</label>
-                 <select name='season' id='season'>
+                 <select name='season' id='season' hidden>
                    <option value="all" selected>Season: all</option>
                    <option value="spring" >Spring</option>
                    <option value="summer" >Summer</option>
@@ -95,8 +97,8 @@
                   </select>
               </div>
               <div>
-                 <label class='visually-hidden' for='season'>Filter mushrooms by type</label>
-                 <select name='mushroomType' id='mushroomType'>
+                 <label class='visually-hidden' for='edible'>Filter mushrooms by type</label>
+                 <select name='edible' id='edible' hidden>
                    <option value="all" selected>Type: all</option>
                    <option value="edible" >Edible</option>
                    <option value="toxic" >Toxic</option>
@@ -104,7 +106,7 @@
               </div>
             </div>
             <!-- interactive guide -->
-            <div class="grid-auto-fit">
+            <div class="grid-auto-fill">
               <div class="card">
                 <h3 class="card__title">Chanterelle</h3>
                 <ul class="tag-list" role="list" aria-label="Mushroom characteristics">
@@ -123,7 +125,7 @@
               <div class="card">
                 <h3 class="card__title">Morel</h3>
                 <ul class="tag-list" role="list" aria-label="Mushroom characteristics">
-                  <li class="tag" data-toxic="toxic">toxic</li>
+                  <li class="tag" data-edible="toxic">toxic</li>
                   <li class="tag" data-season="spring"><span class="visually-hidden"> You can harvest this mushroom in the </span>spring</li>
                 </ul>
                 <p class="card__description">
@@ -157,7 +159,7 @@
               <div class="card">
                 <h3 class="card__title">Death Cap</h3>
                 <ul class="tag-list" role="list" aria-label="Mushroom characteristics">
-                  <li class="tag" data-toxic="toxic">toxic</li>
+                  <li class="tag" data-edible="toxic">toxic</li>
                   <li class="tag" data-season="summer"><span class="visually-hidden"> You can harvest this mushroom in the </span>summer</li>
                 </ul>
                 <p class="card__description">
@@ -209,7 +211,7 @@
               <div class="card">
                 <h3 class="card__title">Destroying Angel</h3>
                 <ul class="tag-list" role="list" aria-label="Mushroom characteristics">
-                  <li class="tag" data-toxic="toxic">toxic</li>
+                  <li class="tag" data-edible="toxic">toxic</li>
                   <li class="tag" data-season="summer"><span class="visually-hidden"> You can harvest this mushroom in the </span>summer</li>
                 </ul>
                 <p class="card__description">
@@ -277,7 +279,7 @@
               <div class="card">
                 <h3 class="card__title">False Morel</h3>
                 <ul class="tag-list" role="list" aria-label="Mushroom characteristics">
-                  <li class="tag" data-toxic="toxic">toxic</li>
+                  <li class="tag" data-edible="toxic">toxic</li>
                   <li class="tag" data-season="spring"><span class="visually-hidden"> You can harvest this mushroom in the </span>spring</li>
                 </ul>
                 <p class="card__description">
@@ -308,6 +310,8 @@
                 </div>
               </div>
             </div>
+
+            <div class="no-matches" hidden>No matches for these filters</div>
         </section>
         
         <section id="faq" class="background-extra-dark section" data-padding="compact">
