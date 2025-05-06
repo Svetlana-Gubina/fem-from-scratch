@@ -2,7 +2,8 @@
   --clr-white: hsl(0, 0%, 100%);
   --clr-gray-100: hsl(0, 2%, 79%);
   --clr-brand-400: hsl(25, 88%, 75%);
-  --clr-brand-500: hsl(25, 88%, 66%);
+  --clr-brand-500: hwb(25 36% 4%);
+  --clr-green-300: hsl(109, 18%, 57%);
   --clr-green-400: hsl(143, 19%, 49%);
   --clr-green-500: hsl(143, 38%, 37%);
   --clr-green-600: hsl(145, 29%, 19%);
@@ -74,21 +75,37 @@
   --clr-brown-300: hsl(9, 8%, 78%);
   --clr-brown-400: hsl(0, 6%, 72%);
 
-  /* other custom props */
+}
 
-  /* @media (prefers-color-scheme: light) {
-    --text-main: var(--clr-brown-800);
-    --text-high-contrast: var(--clr-900);
+.light-mode {
+  --text-main: var(--clr-brown-800);
+  --text-high-contrast: var(--clr-900);
 
-    --background-accent-light: var(--clr-green-600);
-    --background-accent-main: var(--clr-green-500);
-    --background-accent-dark: var(--clr-green-400);
-    --background-extra-light: var(--clr-white);
-    --background-light: var(--clr-brown-100);
-    --background-main: var(--clr-brown-200);
-    --background-dark: var(--clr-brown-300);
-    --background-extra-dark: var(--clr-brown-400);
-  } */
+  --background-accent-light: var(--clr-green-600);
+  --background-accent-main: var(--clr-green-300);
+  --background-accent-dark: var(--clr-green-300);
+  --background-extra-light: var(--clr-white);
+  --background-light: var(--clr-brown-100);
+  --background-main: var(--clr-brown-200);
+  --background-dark: var(--clr-brown-300);
+  --background-extra-dark: var(--clr-brown-400);
+
+  --card-title-color: var(--text-main);
+
+  .hero,
+  .tag {
+    color: var(--clr-white);
+  }
+
+  .mushroom-guide {
+    --card-title-color: var(--text-main);
+  }
+
+  .button,
+  select {
+    color: var(--text-main);
+  }
+
 }
 
 @layer reset, base, layout, components, utilities;
@@ -97,86 +114,86 @@
   *, *::before, *::after {
     box-sizing: border-box;
   }
-/* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
-html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
-  scroll-padding: 2rem;
-}
-
-@media (prefers-reduced-motion: no-preference) {
+  /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
   html {
-    scroll-behavior: smooth;
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    scroll-padding: 2rem;
   }
   
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-figure,
-blockquote,
-dl,
-dd {
-  margin: 0;
-}
-
-[role="list"] {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  min-block-size: 100vh;
-  line-height: 1.6;
-}
-
-h1,
-h2,
-h3,
-button,
-input,
-label {
-  line-height: 1.1;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  text-wrap: balance;
-}
-
-p,
-li {
-  text-wrap: pretty;
-}
-
-img,
-picture {
-  max-inline-size: 100%;
-  display: block;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-.flow > * + * {
-  margin-block-start: var(--flow-space, 1em);
-}
-
-@view-transition {
-  navigation: auto;
-}
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+    
+  }
+  
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+  
+  [role="list"] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    min-block-size: 100vh;
+    line-height: 1.6;
+  }
+  
+  h1,
+  h2,
+  h3,
+  button,
+  input,
+  label {
+    line-height: 1.1;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  
+  p,
+  li {
+    text-wrap: pretty;
+  }
+  
+  img,
+  picture {
+    max-inline-size: 100%;
+    display: block;
+  }
+  
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+  
+  .flow > * + * {
+    margin-block-start: var(--flow-space, 1em);
+  }
+  
+  @view-transition {
+    navigation: auto;
+  }
 }
 
 @layer base {
@@ -223,17 +240,17 @@ select {
   
     /* helps to match the Figma file */
     box-sizing: content-box;
+
+    &[data-width="narrow"] {
+      --wrapper-max-width: 720px;
+    }
+  
+    &[data-width="wide"] {
+      --wrapper-max-width: 1330px;
+    }
   }
 
-  &[data-width="narrow"] {
-    --wrapper-max-width: 720px;
-  }
-
-  &[data-width="wide"] {
-    --wrapper-max-width: 1330px;
-  }
-
-  .section {
+  section {
     padding-block: 3.75rem;
 
     @media (min-width: 760px) {
@@ -243,6 +260,48 @@ select {
         padding-block: 4.5rem;
       }
     }
+  }
+
+  .joys {
+    display: flex;
+    flex-direction: column;
+
+    & h2 {
+      margin-block: 20px;
+    }
+
+    & ul {
+      list-style: none;
+      margin: 0;
+      margin-block: 20px;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+
+      @media (max-width: 760px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    & li {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  .adventure {
+    text-align: center;
+
+    & h2 {
+      margin-bottom: 20px;
+
+      & > span {
+        color: var(--text-brand);
+      }
+    }
+
   }
 
   .equal-columns {
@@ -275,12 +334,17 @@ select {
     }
   }
 
-  .where-to-look {
-    align-items:center;
-
+  .where-to-look,
+  .experts,
+  .connect-columns {
     & h2 {
       margin-bottom: 20px;
     }
+  }
+
+  .experts p,
+  .connect-columns p {
+    margin-bottom: 20px;
   }
 
   .selects {
@@ -363,6 +427,10 @@ select {
   }
   
   .primary-navigation {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
     ul {
       list-style: none;
       margin: 0;
@@ -370,11 +438,23 @@ select {
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
+      margin-right: 20px;
     }
   
     a {
       text-decoration: none;
     }
+  }
+
+  .change-mode {
+    width: 31px;
+    height: 31px;
+    background-image: url('assets/color-mode.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    border: none;
   }
 
   select {
@@ -383,6 +463,7 @@ select {
     border: none;
     color: white;
     padding: 0.5rem 1rem;
+    font-weight: 700;
   }
 
   select:first-of-type {
@@ -665,8 +746,12 @@ select {
     background-color: var(--background-accent-main);
   }
 
+  .background-accent-dark {
+    background-color: var(--background-accent-dark);
+  }
+
   .background-extra-dark {
-    background-color: var(--background-extra-dark:);
+    background-color: var(--background-extra-dark);
   }
 }
 
